@@ -28,8 +28,8 @@ public class EmployeeController extends HttpServlet {
 			String designation=request.getParameter("designation");
 			int experience=Integer.parseInt(request.getParameter("totalExperience"));
 			String option=request.getParameter("options");
-			System.out.println(option);
-			if(option=="Save") {
+			//System.out.println(option);
+			if(option.equals("Save")) {
 			//3. Create Employee Object & Assign Form data
 			Employee employee=new Employee();
 			employee.setDesignation(designation);

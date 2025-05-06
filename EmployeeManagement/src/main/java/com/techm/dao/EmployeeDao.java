@@ -1,6 +1,7 @@
 package com.techm.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -37,7 +38,25 @@ public class EmployeeDao {
 	
 	public Employee findEmployee(String employeeId) {
 		//Logic to store employee into table ==> select query
-		
+		Connection connection=DBUtil.createConnection();
+		String query="select * from employee where employeeId=?";
+		try {
+			PreparedStatement statement=connection.prepareStatement(query);
+			statement.setString(1, employeeId);
+			ResultSet rs=statement.executeQuery();
+			Employee emp=new Employee();
+			rs.next();
+			emp.setDesignation(rs.getString(3));
+			emp.setEmployeeId(rs.getString(2));
+			emp.setEmployeeName(rs.getString(1));
+			emp.setSalary(rs.getDouble(5));
+			emp.setTotalExperience(rs.getInt(4));
+			return emp;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 	public ArrayList<Employee> findAllEmployee() {
