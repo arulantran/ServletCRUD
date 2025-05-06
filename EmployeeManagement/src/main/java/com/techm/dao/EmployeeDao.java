@@ -61,7 +61,27 @@ public class EmployeeDao {
 	}
 	public ArrayList<Employee> findAllEmployee() {
 		//Logic to store employee into table ==> select query
-		
+		Connection connection=DBUtil.createConnection();
+		String query="select * from employee";
+		try {
+			PreparedStatement statement=connection.prepareStatement(query);
+			ResultSet rs=statement.executeQuery();
+			ArrayList<Employee> empList=new ArrayList<Employee>();
+			while(rs.next()) {
+			Employee emp=new Employee();
+			emp.setDesignation(rs.getString(3));
+			emp.setEmployeeId(rs.getString(2));
+			emp.setEmployeeName(rs.getString(1));
+			emp.setSalary(rs.getDouble(5));
+			emp.setTotalExperience(rs.getInt(4));
+			empList.add(emp);
+			}
+			return empList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 	
